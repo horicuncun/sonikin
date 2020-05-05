@@ -42,7 +42,7 @@ while True:
             image = image.transpose(2, 0, 1)
             image = image.reshape(
                 1, image.shape[0] * image.shape[1] * image.shape[2]).astype("float32")[0]
-            result = model.predict_classes(np.array([image / 255.]))[0]
+            result = model.predict_classes(np.array([image / 255.]))[0] #ソニ禁判定の場合は1、そうでない場合は0
         frame = cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
     # ソニ禁判定が直近20フレームで7フレーム以上あったらソニ禁画像を表示
@@ -54,7 +54,7 @@ while True:
         frame[0:height + 0, 0:width + 0] = sonikin_img
 
     # 表示
-    cv2.imshow('MotionDetected Area Frame', frame)
+    cv2.imshow('Motion Detected Area Frame', frame)
     k = cv2.waitKey(1)
     if k == 27:
         break
